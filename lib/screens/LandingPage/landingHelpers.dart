@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LandingHelpers with ChangeNotifier {
   ConstantColors constantColors = ConstantColors();
+
   Widget bodyImage(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.65,
