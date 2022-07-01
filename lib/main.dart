@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_social/constants/Constantcolors.dart';
+import 'package:the_social/screens/LandingPage/LandingServices.dart';
 import 'package:the_social/screens/LandingPage/landingHelpers.dart';
 import 'package:the_social/screens/SplashScreen/splashScreen.dart';
 
-void main() {
+void main() async {
+  //WidgetsFlutterBinding.ensureInitialized();
+  //await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -21,6 +24,9 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Poppins',
               canvasColor: constantColors.transperant),
         ),
-        providers: [ChangeNotifierProvider(create: (_) => LandingHelpers())]);
+        providers: [
+          ChangeNotifierProvider(create: (_) => LandingHelpers()),
+          ChangeNotifierProvider(create: (_) => LandingServices())
+        ]);
   }
 }

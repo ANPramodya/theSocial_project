@@ -1,9 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import 'package:the_social/constants/Constantcolors.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:the_social/screens/HomePage/HomePage.dart';
 
 class LandingHelpers with ChangeNotifier {
   ConstantColors constantColors = ConstantColors();
@@ -71,6 +75,9 @@ class LandingHelpers with ChangeNotifier {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             GestureDetector(
+              onTap: () {
+                emailAuthSheet(context);
+              },
               child: Container(
                 child: Icon(
                   EvaIcons.emailOutline,
@@ -84,6 +91,14 @@ class LandingHelpers with ChangeNotifier {
               ),
             ),
             GestureDetector(
+              onTap: () {
+                //  Provider.of<Authentication>(context,listen: false).signInWithGoogle().whenComplete((){})
+                Navigator.pushReplacement(
+                    context,
+                    PageTransition(
+                        child: HomePage(),
+                        type: PageTransitionType.leftToRight));
+              },
               child: Container(
                 child: Icon(
                   FontAwesomeIcons.google,
@@ -131,5 +146,58 @@ class LandingHelpers with ChangeNotifier {
         ]),
       ),
     );
+  }
+
+  emailAuthSheet(BuildContext context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Divider(
+                    thickness: 4.0,
+                    color: constantColors.whiteColor,
+                  ),
+                ),
+                SizedBox(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    MaterialButton(
+                        color: constantColors.blueColor,
+                        child: Text(
+                          'Log In',
+                          style: TextStyle(
+                              color: constantColors.whiteColor,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {}),
+                    MaterialButton(
+                        color: constantColors.redColor,
+                        child: Text(
+                          'Sign In',
+                          style: TextStyle(
+                              color: constantColors.whiteColor,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {})
+                  ],
+                )
+              ],
+            ),
+            height: MediaQuery.of(context).size.height * 0.7,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                color: constantColors.blueGreyColor,
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(15.0),
+                    topRight: Radius.circular(15.0))),
+          );
+        });
   }
 }
